@@ -1,0 +1,8 @@
+{
+    "HomePage": {
+      "welcome": "Bienvenue",
+      "accesAndManage": "Accédez et gérez votre compte", 
+      "bankAccount": "{count, plural, one {Compte bancaire: #} other {Comptes bancaires: #}}",
+      "currentBalance":"Solde total"
+    }
+  }

@@ -1,0 +1,8 @@
+{
+  "HomePage": {
+    "welcome": "Welcome",
+    "accesAndManage": "Access and manage your account",
+    "bankAccount": "Bank {count, plural, one {account: #} other {accounts: #}}",
+    "currentBalance":"Total Balance"
+  }
+}
