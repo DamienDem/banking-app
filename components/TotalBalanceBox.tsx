@@ -1,3 +1,4 @@
+import { formatAmount } from "@/utils";
 import { useTranslations } from "next-intl";
 
 const TotalBalanceBox = ({
@@ -14,7 +15,7 @@ const TotalBalanceBox = ({
         <div className="flex flex-col gap-2">
           <p className="total-balance-label">{t("currentBalance")}</p>
           <div className="total-balance-amount flex-center gap-2">
-            {totalBalance}€
+            {formatAmount(totalBalance)}
           </div>
         </div>
       </div>
