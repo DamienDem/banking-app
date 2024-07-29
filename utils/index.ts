@@ -1,7 +1,7 @@
-export function formatAmount(amount: number): string {
+export function formatAmount(amount: number, currency: string = "EUR"): string {
     const formatter = new Intl.NumberFormat("fr-FR", {
       style: "currency",
-      currency: "EUR",
+      currency: currency,
       minimumFractionDigits: 2,
     });
   
