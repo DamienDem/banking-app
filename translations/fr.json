@@ -4,5 +4,11 @@
       "accesAndManage": "Accédez et gérez votre compte", 
       "bankAccount": "{count, plural, one {Compte bancaire: #} other {Comptes bancaires: #}}",
       "currentBalance":"Solde total"
+    },
+    "Sidebar": {
+      "home": "Accueil",
+      "myBanks": "Mes banques",
+      "transactionHistory": "Historique des transactions",
+      "transferFunds": "Transférer de l'argent"
     }
   }
