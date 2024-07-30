@@ -4,6 +4,9 @@ declare type Account = {
   name: string;
 };
 
+declare interface DoughnutChartProps {
+  accounts: Account[];
+}
 declare interface HeaderPropsBox {
   type?: "title" | "welcome";
   title: string;

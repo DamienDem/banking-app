@@ -1,5 +1,6 @@
 import { formatAmount } from "@/utils";
 import { useTranslations } from "next-intl";
+import DoughnutChart from "@/components/DoughnutChart";
 
 const TotalBalanceBox = ({
   accounts = [],
@@ -9,7 +10,9 @@ const TotalBalanceBox = ({
   const t = useTranslations("HomePage");
   return (
     <section className="total-balance">
-      <div className="total-balance-chart">Chart</div>
+      <div className="total-balance-chart">
+        <DoughnutChart accounts={accounts} />
+      </div>
       <div className="flex flex-col gap-6">
         <h2 className="header-2">{t("bankAccount", { count: totalBanks })}</h2>
         <div className="flex flex-col gap-2">
