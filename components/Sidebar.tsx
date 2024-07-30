@@ -1,21 +1,20 @@
-'use client'
-import { sidebarLinks } from '@/constants'
-import Image from 'next/image'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { cn } from '@/utils'
-import { useTranslations } from 'next-intl'
-
+"use client";
+import { sidebarLinks } from "@/constants";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cn } from "@/utils";
+import { useTranslations } from "next-intl";
 
 const Sidebar = ({ user }: any) => {
   const pathname = usePathname();
-  const t = useTranslations('Sidebar')
+  const t = useTranslations("Sidebar");
 
   return (
     <section className="sidebar">
       <nav className="flex flex-col gap-4">
         <Link href="/" className="mb-12 cursor-pointer flex items-center gap-2">
-          <Image 
+          <Image
             src="/icons/logo.svg"
             width={34}
             height={34}
@@ -26,19 +25,22 @@ const Sidebar = ({ user }: any) => {
         </Link>
 
         {sidebarLinks.map((item) => {
-          const isActive = pathname === item.route || pathname.startsWith(`${item.route}/`)
+          const isActive =
+            pathname === item.route || pathname.startsWith(`${item.route}/`);
 
           return (
-            <Link href={item.route} key={item.label}
-              className={cn('sidebar-link', { 'bg-bank-gradient': isActive })}
+            <Link
+              href={item.route}
+              key={item.label}
+              className={cn("sidebar-link", { "bg-bank-gradient": isActive })}
             >
               <div className="relative size-6">
-                <Image 
+                <Image
                   src={item.imgURL}
-                  alt={item.label}
+                  alt={t(item.label)}
                   fill
                   className={cn({
-                    'brightness-[3] invert-0': isActive
+                    "brightness-[3] invert-0": isActive,
                   })}
                 />
               </div>
@@ -46,11 +48,11 @@ const Sidebar = ({ user }: any) => {
                 {t(item.label)}
               </p>
             </Link>
-          )
+          );
         })}
       </nav>
     </section>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;
