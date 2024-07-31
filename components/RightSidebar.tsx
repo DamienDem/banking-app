@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
+import BankCard from "@/components/BankCard";
 
 const RightSidebar = () => {
   const t = useTranslations("RightSidebar");
@@ -41,7 +42,7 @@ const RightSidebar = () => {
         </div>
 
         <div className="relative flex flex-1 flex-col items-center justify-center gap-5">
-          BankCardComponent
+          <BankCard/>
         </div>
       </section>
     </aside>
