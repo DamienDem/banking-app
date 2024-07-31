@@ -5,6 +5,12 @@ import { useTranslations } from "next-intl";
 
 const Home = () => {
   const t = useTranslations("HomePage");
+  const user = {
+    userId: "1",
+    firstName: "Jhon",
+    lastName: "Doe",
+    email: "jhon.doe@moulaga.com",
+  };
   return (
     <section className="home">
       <div className="home-content">
@@ -12,13 +18,19 @@ const Home = () => {
           <HeaderBox
             type="welcome"
             title={t("welcome")}
-            userName="Jhon"
+            userName={user.firstName}
             subtext={t("accesAndManage")}
           />
           <TotalBalanceBox accounts={[]} totalBanks={2} totalBalance={1300} />
         </header>
       </div>
-      <RightSidebar />
+      <RightSidebar
+        user={user}
+        banks={[
+          { id: "1", balance: 1300, name: "chase" },
+          { id: "2", balance: 800, name: "HSBC" },
+        ]}
+      />
     </section>
   );
 };

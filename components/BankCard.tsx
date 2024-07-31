@@ -3,13 +3,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
-const BankCard = () => {
-    const account = {
-        name:"Jhon Doe",
-        currentBalance: 1300,
-
-    }
-    const userName = "Jhon Doe"
+const BankCard = ({ account, userName }: CreditCardProps) => {
+ 
   return (
     <div className="flex flex-col">
       <Link href="/" className="bank-card">
@@ -19,7 +14,7 @@ const BankCard = () => {
               {account.name}
             </h1>
             <p className="font-ibm-plex-serif font-black text-white">
-              {formatAmount(account.currentBalance)}
+              {formatAmount(account.balance)}
             </p>
           </div>
 

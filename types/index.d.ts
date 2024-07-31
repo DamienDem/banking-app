@@ -11,6 +11,12 @@ declare type User = {
   email: string;
 };
 
+declare interface CreditCardProps {
+  account: Account;
+  userName: string;
+  showBalance?: boolean;
+}
+
 declare interface DoughnutChartProps {
   accounts: Account[];
 }
@@ -19,6 +25,11 @@ declare interface HeaderPropsBox {
   title: string;
   subtext?: string;
   userName?: string;
+}
+
+declare interface RightSidebarProps {
+  user: User;
+  banks: Account[];
 }
 
 declare interface TotalBalanceBoxProps {
