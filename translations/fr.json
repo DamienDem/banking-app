@@ -10,5 +10,9 @@
       "myBanks": "Mes banques",
       "transactionHistory": "Historique des transactions",
       "transferFunds": "Transférer de l'argent"
+    },
+    "RightSidebar": {
+      "myBanks": "Mes banques",
+      "addBank": "Ajouter une banque"
     }
   }

@@ -4,6 +4,13 @@ declare type Account = {
   name: string;
 };
 
+declare type User = {
+  userId: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+};
+
 declare interface DoughnutChartProps {
   accounts: Account[];
 }

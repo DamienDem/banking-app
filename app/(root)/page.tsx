@@ -1,4 +1,5 @@
 import HeaderBox from "@/components/HeaderBox";
+import RightSidebar from "@/components/RightSidebar";
 import TotalBalanceBox from "@/components/TotalBalanceBox";
 import { useTranslations } from "next-intl";
 
@@ -17,6 +18,7 @@ const Home = () => {
           <TotalBalanceBox accounts={[]} totalBanks={2} totalBalance={1300} />
         </header>
       </div>
+      <RightSidebar />
     </section>
   );
 };
