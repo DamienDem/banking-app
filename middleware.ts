@@ -1,11 +1,19 @@
 import createMiddleware from 'next-intl/middleware';
-import { locales, defaultLocale } from './config';
+import {localePrefix, defaultLocale, locales, pathnames} from './config';
 
 export default createMiddleware({
+  defaultLocale,
   locales,
-  defaultLocale
+  localePrefix,
+  pathnames
 });
 
 export const config = {
-  matcher: ['/((?!api|_next|.*\\..*).*)']
+  matcher: [
+    "/",
+    // Set a cookie to remember the previous locale for
+    // all requests that have a locale prefix
+    "/(fr|en)/:path*",
+    "/((?!api|_next|.*\\..*).*)",
+  ],
 };

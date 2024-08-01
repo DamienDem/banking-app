@@ -9,15 +9,18 @@ export const defaultLocale: Locale = 'fr';
 
 export const pathnames: Pathnames<typeof locales> = {
   '/': '/',
-  '/pathnames': {
-    en: '/pathnames',
-    fr: '/chemins'
+  '/myBanks': {
+    en: '/my-banks',
+    fr: '/mes-banques'
+  },
+  '/transactionHistory': {
+    en: '/transaction-history',
+    fr: '/historique-des-transactions'
+  },
+  '/transferFunds': {
+    en: '/transfer-funds',
+    fr: "/transferer-de-largent"
   }
 };
 
 export const localePrefix: LocalePrefix<typeof locales> = 'always';
-
-// export const port = process.env.PORT || 3000;
-// export const host = process.env.VERCEL_URL
-//   ? `https://${process.env.VERCEL_URL}`
-//   : `http://localhost:${port}`;

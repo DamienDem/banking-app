@@ -3,13 +3,21 @@
     "welcome": "Welcome",
     "accesAndManage": "Access and manage your account",
     "bankAccount": "Bank {count, plural, one {account: #} other {accounts: #}}",
-    "currentBalance":"Total Balance"
+    "currentBalance": "Total Balance"
   },
   "Sidebar": {
-    "home": "Home",
-    "myBanks": "myBanks",
-    "transactionHistory": "Transaction History",
-    "transferFunds": "Transfer Funds"
+    "SidebarLabels": {
+      "home": "Home",
+      "myBanks": "myBanks",
+      "transactionHistory": "Transaction History",
+      "transferFunds": "Transfer Funds"
+    },
+    "routes": {
+      "/": "/",
+      "/myBanks": "/my-banks",
+      "/transactionHistory": "/transaction-history",
+      "/transferFunds": "/transfer-funds"
+    }
   },
   "RightSidebar": {
     "myBanks": "myBanks",

@@ -3,7 +3,7 @@ import { sidebarLinks } from "@/constants";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { cn } from "@/utils";
+import { cn, isLinkActive } from "@/utils";
 import { useTranslations } from "next-intl";
 
 const Sidebar = ({ user }: any) => {
@@ -25,8 +25,10 @@ const Sidebar = ({ user }: any) => {
         </Link>
 
         {sidebarLinks.map((item) => {
-          const isActive =
-            pathname === item.route || pathname.startsWith(`${item.route}/`);
+          const isActive = isLinkActive(
+            t(`routes.${item.route}`),
+            pathname
+          );
 
           return (
             <Link
@@ -37,7 +39,7 @@ const Sidebar = ({ user }: any) => {
               <div className="relative size-6">
                 <Image
                   src={item.imgURL}
-                  alt={t(item.label)}
+                  alt={t(`SidebarLabels.${item.label}`)}
                   fill
                   className={cn({
                     "brightness-[3] invert-0": isActive,
@@ -45,7 +47,7 @@ const Sidebar = ({ user }: any) => {
                 />
               </div>
               <p className={cn("sidebar-label", { "!text-white": isActive })}>
-                {t(item.label)}
+                {t(`SidebarLabels.${item.label}`)}
               </p>
             </Link>
           );

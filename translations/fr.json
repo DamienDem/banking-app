@@ -1,18 +1,26 @@
 {
-    "HomePage": {
-      "welcome": "Bienvenue",
-      "accesAndManage": "Accédez et gérez votre compte", 
-      "bankAccount": "{count, plural, one {Compte bancaire: #} other {Comptes bancaires: #}}",
-      "currentBalance":"Solde total"
-    },
-    "Sidebar": {
+  "HomePage": {
+    "welcome": "Bienvenue",
+    "accesAndManage": "Accédez et gérez votre compte",
+    "bankAccount": "{count, plural, one {Compte bancaire: #} other {Comptes bancaires: #}}",
+    "currentBalance": "Solde total"
+  },
+  "RightSidebar": {
+    "myBanks": "Mes banques",
+    "addBank": "Ajouter une banque"
+  },
+  "Sidebar": {
+    "SidebarLabels": {
       "home": "Accueil",
       "myBanks": "Mes banques",
       "transactionHistory": "Historique des transactions",
       "transferFunds": "Transférer de l'argent"
     },
-    "RightSidebar": {
-      "myBanks": "Mes banques",
-      "addBank": "Ajouter une banque"
+    "routes": {
+      "/": "/",
+      "/myBanks": "/mes-banques",
+      "/transactionHistory": "/historique-des-transactions",
+      "/transferFunds": "/transferer-de-largent"
     }
   }
+}

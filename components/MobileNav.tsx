@@ -52,7 +52,7 @@ const MobileNav = ({ user }: any) => {
                     >
                         <Image 
                           src={item.imgURL}
-                          alt={t(item.label)}
+                          alt={t(`SidebarLabels.${item.label}`)}
                           width={20}
                           height={20}
                           className={cn({
@@ -60,7 +60,7 @@ const MobileNav = ({ user }: any) => {
                           })}
                         />
                       <p className={cn("text-16 font-semibold text-black-2", { "text-white": isActive })}>
-                        {t(item.label)}
+                      {t(`SidebarLabels.${item.label}`)}
                       </p>
                     </Link>
                   </SheetClose>
