@@ -1,4 +1,4 @@
-import { formatAmount } from "@/utils";
+import { formatAmount } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import DoughnutChart from "@/components/DoughnutChart";
 

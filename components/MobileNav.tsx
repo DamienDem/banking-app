@@ -7,7 +7,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { sidebarLinks } from "@/constants"
-import { cn } from "@/utils"
+import { cn } from "@/lib/utils"
 import { useTranslations } from "next-intl"
 import Image from "next/image"
 import Link from "next/link"
