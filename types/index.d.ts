@@ -37,3 +37,24 @@ declare interface TotalBalanceBoxProps {
   totalBanks: number;
   totalBalance: number;
 }
+
+declare type SignUpParams = {
+  firstName: string;
+  lastName: string;
+  address: string;
+  city: string;
+  state: string;
+  postalCode: string;
+  dateOfBirth: string;
+  email: string;
+  password: string;
+};
+
+declare interface getUserInfoProps {
+  userId: string;
+}
+
+declare interface signInProps {
+  email: string;
+  password: string;
+}

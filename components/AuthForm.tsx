@@ -12,9 +12,12 @@ import { Form } from "@/components/ui/form";
 import CustomInput from "./CustomInput";
 import { authFormSchema } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
+import { signIn, signUp } from "@/lib/actions/user.action";
+import { useRouter } from "next/navigation";
 
 const AuthForm = ({ type }: { type: string }) => {
-  const [user, setUser] = useState<any>(null);
+  const router = useRouter();
+  const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const formSchema = authFormSchema(type);
@@ -46,17 +49,16 @@ const AuthForm = ({ type }: { type: string }) => {
           password: data.password,
         };
 
-        console.log(userData);
-
-        setUser(userData);
+        const newUser = await signUp(userData);
+        setUser(newUser)
       }
 
       if (type === "sign-in") {
-        const response = {
+        const response = await signIn({
           email: data.email,
           password: data.password,
-        };
-        console.log(response);
+        });
+        if (response) router.push("/");
       }
     } catch (error) {
       console.log(error);
@@ -92,7 +94,7 @@ const AuthForm = ({ type }: { type: string }) => {
         </div>
       </header>
       {user ? (
-        <div className="flex flex-col gap-4">{user.firstName}</div>
+        <div className="flex flex-col gap-4">{user}</div>
       ) : (
         <>
           <Form {...form}>
