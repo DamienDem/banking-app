@@ -7,9 +7,19 @@ import {
 } from "firebase/auth";
 import { auth, db } from "@/firebase";
 import { adminAuth } from "@/firebaseAdmin";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { parseStringify } from "@/lib/utils";
 
-const parseStringify = (value: any) => JSON.parse(JSON.stringify(value));
+export const getUserInfo = async ({ userId }: getUserInfoProps) => {
+  try {
+    const userDocRef = doc(db, "users", userId);
+    const user = await getDoc(userDocRef);
+
+    return parseStringify(user.data());
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const signIn = async ({
   email,
@@ -24,9 +34,10 @@ export const signIn = async ({
       email,
       password
     );
-    const user = userCredential.user;
 
-    const customToken = await adminAuth.createCustomToken(user.uid);
+    const customToken = await adminAuth.createCustomToken(
+      userCredential.user.uid
+    );
 
     cookies().set("firebase-token", customToken, {
       path: "/",
@@ -35,6 +46,7 @@ export const signIn = async ({
       secure: true,
     });
 
+    const user = await getUserInfo({ userId: userCredential.user.uid });
     return parseStringify(user);
   } catch (error) {
     console.error("Error", error);
@@ -45,14 +57,18 @@ export const signUp = async ({
   password,
   ...userData
 }: {
-  password: string;
-  email: string;
   firstName: string;
   lastName: string;
-  adress: string;
-  [key: string]: any;
+  address: string;
+  city: string;
+  state: string;
+  postalCode: string;
+  dateOfBirth: string;
+  email: string;
+  password: string;
 }) => {
-  const { email, firstName, lastName } = userData;
+  "use server";
+  const { email } = userData;
 
   try {
     const userCredential = await createUserWithEmailAndPassword(
@@ -65,8 +81,8 @@ export const signUp = async ({
     await setDoc(doc(db, "users", user.uid), {
       ...userData,
     });
-    
-    return user;
+
+    return parseStringify(user);
   } catch (error) {
     console.error("Error", error);
   }
@@ -78,9 +94,9 @@ export async function getLoggedInUser() {
     if (!token) {
       throw new Error("No token found");
     }
+    const userId = (await adminAuth.verifyIdToken(token)).uid;
 
-    const decodedToken = await adminAuth.verifyIdToken(token);
-    const user = decodedToken.firebase.identities;
+    const user = getUserInfo({ userId: userId });
 
     return parseStringify(user);
   } catch (error) {

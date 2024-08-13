@@ -46,3 +46,5 @@ export const isLinkActive = (route: string, pathname: string) => {
   }
   return pathname.startsWith(`/${locale}${route}`);
 };
+
+export const parseStringify = (value: any) => JSON.parse(JSON.stringify(value));

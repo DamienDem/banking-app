@@ -17,12 +17,11 @@ import { useRouter } from "next/navigation";
 
 const AuthForm = ({ type }: { type: string }) => {
   const router = useRouter();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const formSchema = authFormSchema(type);
 
-  // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -31,7 +30,6 @@ const AuthForm = ({ type }: { type: string }) => {
     },
   });
 
-  // 2. Define a submit handler.
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     setIsLoading(true);
 
@@ -50,7 +48,7 @@ const AuthForm = ({ type }: { type: string }) => {
         };
 
         const newUser = await signUp(userData);
-        setUser(newUser)
+        setUser(newUser);
       }
 
       if (type === "sign-in") {
@@ -94,7 +92,7 @@ const AuthForm = ({ type }: { type: string }) => {
         </div>
       </header>
       {user ? (
-        <div className="flex flex-col gap-4">{user}</div>
+        <div className="flex flex-col gap-4">{user.firstName}</div>
       ) : (
         <>
           <Form {...form}>

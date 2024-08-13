@@ -5,10 +5,15 @@ declare type Account = {
 };
 
 declare type User = {
-  userId: string;
   firstName: string;
   lastName: string;
+  address: string;
+  city: string;
+  state: string;
+  postalCode: string;
+  dateOfBirth: string;
   email: string;
+  password: string;
 };
 
 declare interface CreditCardProps {
