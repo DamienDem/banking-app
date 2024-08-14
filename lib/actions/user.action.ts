@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 import { auth, db } from "@/firebase";
 import { adminAuth } from "@/firebaseAdmin";
@@ -13,9 +14,9 @@ import { parseStringify } from "@/lib/utils";
 export const getUserInfo = async ({ userId }: getUserInfoProps) => {
   try {
     const userDocRef = doc(db, "users", userId);
-    const user = await getDoc(userDocRef);
+    const user = (await getDoc(userDocRef)).data();
 
-    return parseStringify(user.data());
+    return parseStringify(user) as User;
   } catch (error) {
     console.log(error);
   }
@@ -35,15 +36,16 @@ export const signIn = async ({
       password
     );
 
-    const customToken = await adminAuth.createCustomToken(
-      userCredential.user.uid
-    );
+    const idToken = await auth.currentUser!.getIdToken();
+    const expiresIn = 60 * 60 * 24 * 5 * 1000; // 5 days
+    const sessionCookie = await adminAuth.createSessionCookie(idToken, {
+      expiresIn,
+    });
 
-    cookies().set("firebase-token", customToken, {
-      path: "/",
+    cookies().set("session", sessionCookie, {
       httpOnly: true,
-      sameSite: "strict",
       secure: true,
+      maxAge: expiresIn,
     });
 
     const user = await getUserInfo({ userId: userCredential.user.uid });
@@ -53,64 +55,64 @@ export const signIn = async ({
   }
 };
 
-export const signUp = async ({
-  password,
-  ...userData
-}: {
-  firstName: string;
-  lastName: string;
-  address: string;
-  city: string;
-  state: string;
-  postalCode: string;
-  dateOfBirth: string;
-  email: string;
-  password: string;
-}) => {
-  "use server";
-  const { email } = userData;
-
+export const signUp = async (user: User) => {
   try {
+    const { email, password, ...userData } = user;
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       email,
       password
     );
+    const { uid } = userCredential.user;
 
-    const user = userCredential.user;
-    await setDoc(doc(db, "users", user.uid), {
+    await setDoc(doc(db, "users", uid), {
       ...userData,
+      email,
     });
 
-    return parseStringify(user);
+    const idToken = await auth.currentUser!.getIdToken();
+    const expiresIn = 60 * 60 * 24 * 5 * 1000; // 5 days
+    const sessionCookie = await adminAuth.createSessionCookie(idToken, {
+      expiresIn,
+    });
+    cookies().set("session", sessionCookie, { httpOnly: true, secure: true });
+
+    return parseStringify(userCredential.user);
   } catch (error) {
     console.error("Error", error);
   }
 };
 
-export async function getLoggedInUser() {
+export async function getCurrentUser() {
+  const sessionCookie = cookies().get("session");
+
+  if (!sessionCookie) {
+    return null;
+  }
+
   try {
-    const token = cookies().get("firebase-token")?.value;
-    if (!token) {
-      throw new Error("No token found");
+    const decodedClaims = await adminAuth.verifySessionCookie(
+      sessionCookie.value
+    );
+    const userDoc = await getDoc(doc(db, "users", decodedClaims.uid));
+
+    if (userDoc.exists()) {
+      return parseStringify(userDoc.data()) as User;
+    } else {
+      return null;
     }
-    const userId = (await adminAuth.verifyIdToken(token)).uid;
-
-    const user = getUserInfo({ userId: userId });
-
-    return parseStringify(user);
   } catch (error) {
-    console.log(error);
+    console.error("Erreur lors de la récupération de l'utilisateur actuel:", error);
     return null;
   }
 }
 
-export const logoutAccount = async () => {
+export async function signOutUser() {
   try {
-    cookies().delete("firebase-token");
-    // Note: Firebase doesn't have a server-side logout.
-    // Client-side logout should be handled separately.
+    await signOut(auth);
+    cookies().delete("session");
+    return { success: true };
   } catch (error) {
     return null;
   }
-};
+}
