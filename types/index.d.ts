@@ -5,9 +5,12 @@ declare type Account = {
 };
 
 declare type User = {
+  $id: string;
   firstName: string;
   lastName: string;
   address: string;
+  dwollaCustomerUrl: string;
+  dwollaCustomerId: string;
   city: string;
   state: string;
   postalCode: string;
@@ -22,6 +25,43 @@ declare interface CreditCardProps {
   showBalance?: boolean;
 }
 
+declare interface CreateFundingSourceOptions {
+  customerId: string; // Dwolla Customer ID
+  fundingSourceName: string; // Dwolla Funding Source Name
+  plaidToken: string; // Plaid Account Processor Token
+  _links: object; // Dwolla On Demand Authorization Link
+}
+
+declare interface exchangePublicTokenProps {
+  publicToken: string;
+  user: User;
+}
+
+declare type NewDwollaCustomerParams = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  type: string;
+  address1: string;
+  city: string;
+  state: string;
+  postalCode: string;
+  dateOfBirth: string;
+  ssn: string;
+};
+
+declare type TransferParams = {
+  sourceFundingSourceUrl: string;
+  destinationFundingSourceUrl: string;
+  amount: string;
+};
+
+declare type AddFundingSourceParams = {
+  dwollaCustomerId: string;
+  processorToken: string;
+  bankName: string;
+};
+
 declare interface DoughnutChartProps {
   accounts: Account[];
 }
@@ -30,6 +70,12 @@ declare interface HeaderPropsBox {
   title: string;
   subtext?: string;
   userName?: string;
+}
+
+declare interface PlaidLinkProps {
+  user: User;
+  variant?: "primary" | "ghost";
+  dwollaCustomerId?: string;
 }
 
 declare interface RightSidebarProps {
