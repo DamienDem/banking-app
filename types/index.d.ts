@@ -5,7 +5,7 @@ declare type Account = {
 };
 
 declare type User = {
-  $id: string;
+  uid: string;
   firstName: string;
   lastName: string;
   address: string;
@@ -32,6 +32,15 @@ declare interface CreateFundingSourceOptions {
   _links: object; // Dwolla On Demand Authorization Link
 }
 
+declare interface createBankAccountProps {
+  accessToken: string;
+  userId: string;
+  accountId: string;
+  bankId: string;
+  fundingSourceUrl: string;
+  shareableId: string;
+}
+
 declare interface exchangePublicTokenProps {
   publicToken: string;
   user: User;
@@ -42,12 +51,11 @@ declare type NewDwollaCustomerParams = {
   lastName: string;
   email: string;
   type: string;
-  address1: string;
+  address: string;
   city: string;
   state: string;
   postalCode: string;
   dateOfBirth: string;
-  ssn: string;
 };
 
 declare type TransferParams = {
