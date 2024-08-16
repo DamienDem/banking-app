@@ -50,7 +50,6 @@ declare type NewDwollaCustomerParams = {
   firstName: string;
   lastName: string;
   email: string;
-  type: string;
   address: string;
   city: string;
   state: string;

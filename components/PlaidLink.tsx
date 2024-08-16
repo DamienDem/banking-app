@@ -9,6 +9,8 @@ const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
   const router = useRouter();
 
   const [token, setToken] = useState('');
+  console.log('user', user);
+  
 
   useEffect(() => {
     const getLinkToken = async () => {

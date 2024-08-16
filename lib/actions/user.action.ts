@@ -9,7 +9,11 @@ import {
 import { auth, db } from "@/firebase";
 import { adminAuth } from "@/firebaseAdmin";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { encryptId, parseStringify } from "@/lib/utils";
+import {
+  encryptId,
+  extractCustomerIdFromUrl,
+  parseStringify,
+} from "@/lib/utils";
 import {
   CountryCode,
   ProcessorTokenCreateRequest,
@@ -64,9 +68,7 @@ export const signIn = async ({
   }
 };
 
-export const signUp = async (
-  { password, ...userData }:SignUpParams
-) => {
+export const signUp = async ({ password, ...userData }: SignUpParams) => {
   try {
     const { email } = userData;
     const userCredential = await createUserWithEmailAndPassword(
@@ -75,18 +77,23 @@ export const signUp = async (
       password
     );
     const { uid } = userCredential.user;
+
     const dwollaCustomerUrl = await createDwollaCustomer({
       ...userData,
-      type: 'personal'
-    })
+      type: "personal",
+      address1: userData.address,
+      state: "NY",
+      ssn: "1234",
+    });
 
-    const dwollaCustomerId = extractCustomerIdFromUrl(dwollaCustomerUrl);
+    const dwollaCustomerId = extractCustomerIdFromUrl(dwollaCustomerUrl!);
 
-    await setDoc(doc(db, "users", uid), {
+    const userDocData = {
       ...userData,
       dwollaCustomerId,
-      dwollaCustomerUrl
-    });
+      dwollaCustomerUrl,
+    };
+    await setDoc(doc(db, "users", uid), userDocData);
 
     const idToken = await auth.currentUser!.getIdToken();
     const expiresIn = 60 * 60 * 24 * 5 * 1000; // 5 days
@@ -95,7 +102,10 @@ export const signUp = async (
     });
     cookies().set("session", sessionCookie, { httpOnly: true, secure: true });
 
-    return parseStringify(userCredential.user);
+    return {
+      ...userDocData,
+      uid: uid,
+    };
   } catch (error) {
     console.error("Error", error);
   }
@@ -230,7 +240,3 @@ export const exchangePublicToken = async ({
     console.error("An error occurred while creating exchanging token:", error);
   }
 };
-function extractCustomerIdFromUrl(dwollaCustomerUrl: string | null | undefined) {
-  throw new Error("Function not implemented.");
-}
-

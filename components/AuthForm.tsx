@@ -31,6 +31,8 @@ const AuthForm = ({ type }: { type: string }) => {
     },
   });
 
+  console.log(user);
+  
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     setIsLoading(true);
 
@@ -48,7 +50,7 @@ const AuthForm = ({ type }: { type: string }) => {
           password: data.password,
         };
 
-        const newUser = await signUp(userData);
+        const newUser = await signUp(userData) as User;
         setUser(newUser);
       }
 
