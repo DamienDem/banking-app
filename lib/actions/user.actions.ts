@@ -8,7 +8,15 @@ import {
 } from "firebase/auth";
 import { auth, db } from "@/firebase";
 import { adminAuth } from "@/firebaseAdmin";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
 import {
   encryptId,
   extractCustomerIdFromUrl,
@@ -21,7 +29,7 @@ import {
   Products,
 } from "plaid";
 import { plaidClient } from "../plaid";
-import { addFundingSource, createDwollaCustomer } from "./dwolla.action";
+import { addFundingSource, createDwollaCustomer } from "./dwolla.actions";
 import { revalidatePath } from "next/cache";
 
 export const getUserInfo = async ({ userId }: getUserInfoProps) => {
@@ -124,11 +132,7 @@ export async function getCurrentUser() {
     );
     const userDoc = await getDoc(doc(db, "users", decodedClaims.uid));
 
-    if (userDoc.exists()) {
-      return parseStringify(userDoc.data()) as User;
-    } else {
-      return null;
-    }
+    return { uid: decodedClaims.uid, ...userDoc.data() } as User;
   } catch (error) {
     console.error(
       "Erreur lors de la récupération de l'utilisateur actuel:",
@@ -238,5 +242,32 @@ export const exchangePublicToken = async ({
     });
   } catch (error) {
     console.error("An error occurred while creating exchanging token:", error);
+  }
+};
+
+export const getBanks = async ({ userId }: getBanksProps) => {
+  try {
+    const banksCollectionRef = collection(db, "banks");
+    const q = query(banksCollectionRef, where("userId", "==", userId));
+    const querySnapshot = await getDocs(q);
+
+    const banks: Bank[] = [];
+    querySnapshot.forEach((doc) => {
+      banks.push({ id: doc.id, ...doc.data() } as Bank);
+    });
+    return parseStringify(banks);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getBank = async ({ documentId }: getBankProps) => {
+  try {
+    const bankDocRef = await doc(db, "banks", documentId);
+    const bank = (await getDoc(bankDocRef)).data();
+
+    return parseStringify(bank);
+  } catch (error) {
+    console.log(error);
   }
 };

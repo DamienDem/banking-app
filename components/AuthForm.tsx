@@ -12,7 +12,7 @@ import { Form } from "@/components/ui/form";
 import CustomInput from "./CustomInput";
 import { authFormSchema } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
-import { signIn, signUp } from "@/lib/actions/user.action";
+import { signIn, signUp } from "@/lib/actions/user.actions";
 import { useRouter } from "next/navigation";
 import PlaidLink from "./PlaidLink";
 
@@ -31,8 +31,6 @@ const AuthForm = ({ type }: { type: string }) => {
     },
   });
 
-  console.log(user);
-  
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     setIsLoading(true);
 
@@ -50,7 +48,7 @@ const AuthForm = ({ type }: { type: string }) => {
           password: data.password,
         };
 
-        const newUser = await signUp(userData) as User;
+        const newUser = (await signUp(userData)) as User;
         setUser(newUser);
       }
 

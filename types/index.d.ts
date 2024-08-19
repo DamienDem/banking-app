@@ -1,6 +1,6 @@
 declare type Account = {
   id: string;
-  balance: number;
+  currentBalance: number;
   name: string;
 };
 
@@ -50,11 +50,13 @@ declare type NewDwollaCustomerParams = {
   firstName: string;
   lastName: string;
   email: string;
-  address: string;
+  type: string;
+  address1: string;
   city: string;
   state: string;
   postalCode: string;
   dateOfBirth: string;
+  ssn: string;
 };
 
 declare type TransferParams = {
@@ -95,7 +97,12 @@ declare interface TotalBalanceBoxProps {
   totalBanks: number;
   totalBalance: number;
 }
-
+declare interface HomeContentProps {
+  user: User;
+  accounts: Account[];
+  totalBanks: number;
+  totalBalance: number;
+}
 declare type SignUpParams = {
   firstName: string;
   lastName: string;
@@ -116,3 +123,69 @@ declare interface signInProps {
   email: string;
   password: string;
 }
+
+declare interface getBanksProps {
+  userId: string;
+}
+
+declare interface getBankProps {
+  documentId: string;
+}
+declare interface getAccountsProps {
+  userId: string;
+}
+
+declare type Bank = {
+  id: string;
+  accountId: string;
+  bankId: string;
+  accessToken: string;
+  fundingSourceUrl: string;
+  userId: string;
+  shareableId: string;
+};
+declare interface CreateTransactionProps {
+  name: string;
+  amount: string;
+  senderId: string;
+  senderBankId: string;
+  receiverId: string;
+  receiverBankId: string;
+  email: string;
+  userId: string;
+}
+declare interface getTransactionsByBankIdProps {
+  bankId: string;
+}
+declare type Transaction = {
+  id: string;
+  name: string;
+  paymentChannel: string;
+  type: string;
+  accountId: string;
+  amount: number;
+  pending: boolean;
+  category: string;
+  date: string;
+  image: string;
+  type: string;
+  $createdAt: string;
+  channel: string;
+  senderBankId: string;
+  receiverBankId: string;
+};
+
+declare interface getAccountProps {
+  bankId: string;
+}
+declare interface getInstitutionProps {
+  institutionId: string;
+}
+declare interface getTransactionsProps {
+  accessToken: string;
+}
+
+declare type SearchParamProps = {
+  params: { [key: string]: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};

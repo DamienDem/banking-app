@@ -1,6 +1,6 @@
 import MobileNav from "@/components/MobileNav";
 import Sidebar from "@/components/Sidebar";
-import { getCurrentUser } from "@/lib/actions/user.action";
+import { getCurrentUser } from "@/lib/actions/user.actions";
 import Image from "next/image";
 
 export default async function RootLayout({

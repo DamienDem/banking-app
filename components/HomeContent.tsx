@@ -3,7 +3,12 @@ import RightSidebar from "@/components/RightSidebar";
 import TotalBalanceBox from "@/components/TotalBalanceBox";
 import { useTranslations } from "next-intl";
 
-const Home = ({ user }: { user: User }) => {
+const Home = ({
+  user,
+  accounts,
+  totalBanks,
+  totalBalance,
+}: HomeContentProps) => {
   const t = useTranslations("HomePage");
 
   return (
@@ -16,16 +21,14 @@ const Home = ({ user }: { user: User }) => {
             userName={user.firstName}
             subtext={t("accesAndManage")}
           />
-          <TotalBalanceBox accounts={[]} totalBanks={2} totalBalance={1300} />
+          <TotalBalanceBox
+            accounts={accounts}
+            totalBanks={totalBanks}
+            totalBalance={totalBalance}
+          />
         </header>
       </div>
-      <RightSidebar
-        user={user}
-        banks={[
-          { id: "1", balance: 1300, name: "chase" },
-          { id: "2", balance: 800, name: "HSBC" },
-        ]}
-      />
+      <RightSidebar user={user} banks={accounts?.slice(0, 2)} />
     </section>
   );
 };
