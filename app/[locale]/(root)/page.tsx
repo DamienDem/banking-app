@@ -19,10 +19,12 @@ const Home = async ({ searchParams: { id, page } }: SearchParamProps) => {
 
   return (
     <HomeContent
+      account={account}
       user={user}
       accounts={accountsData}
       totalBanks={accounts?.totalBanks}
       totalBalance={accounts?.totalCurrentBalance}
+      page={{ page: page?.toString() }}
     />
   );
 };

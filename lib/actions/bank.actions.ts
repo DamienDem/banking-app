@@ -1,20 +1,10 @@
 "use server";
 
-import {
-  ACHClass,
-  CountryCode,
-  TransferAuthorizationCreateRequest,
-  TransferCreateRequest,
-  TransferNetwork,
-  TransferType,
-} from "plaid";
-
+import { CountryCode } from "plaid";
 import { plaidClient } from "../plaid";
 import { parseStringify } from "../utils";
 import { getBank, getBanks } from "./user.actions";
 import { getTransactionsByBankId } from "./transaction.actions";
-
-
 
 // Get multiple bank accounts
 export const getAccounts = async ({ userId }: getAccountsProps) => {
@@ -75,7 +65,7 @@ export const getAccount = async ({ bankId }: getAccountProps) => {
       access_token: bank.accessToken,
     });
     const accountData = accountsResponse.data.accounts[0];
-  
+
     const transferTransactionsData = await getTransactionsByBankId({
       bankId: bank.bankId,
     });
@@ -115,7 +105,7 @@ export const getAccount = async ({ bankId }: getAccountProps) => {
     };
 
     // sort transactions by date such that the most recent transaction is first
-      const allTransactions = [...transactions, ...transferTransactions].sort(
+    const allTransactions = [...transactions, ...transferTransactions].sort(
       (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
     );
 

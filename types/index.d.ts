@@ -2,6 +2,10 @@ declare type Account = {
   id: string;
   currentBalance: number;
   name: string;
+  type: string;
+  subtype: string;
+  bankId: string;
+  transactions: Transaction[];
 };
 
 declare type User = {
@@ -100,8 +104,10 @@ declare interface TotalBalanceBoxProps {
 declare interface HomeContentProps {
   user: User;
   accounts: Account[];
+  account: Account;
   totalBanks: number;
   totalBalance: number;
+  page: { [key: string]: string | string[] | undefined };
 }
 declare type SignUpParams = {
   firstName: string;
@@ -189,3 +195,40 @@ declare type SearchParamProps = {
   params: { [key: string]: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
+
+declare interface CategoryBadgeProps {
+  category: string;
+}
+
+declare interface TransactionTableProps {
+  transactions: Transaction[];
+}
+
+declare interface TransactionsProps {
+  accounts: Account[];
+  transactions: Transaction[];
+  id: string;
+  page: number;
+}
+
+declare interface BankTabItemProps {
+  account: Account;
+  id?: string;
+}
+declare interface BankInfoProps {
+  account: Account;
+  id?: string;
+  type: "full" | "card";
+}
+
+declare type AccountTypes =
+  | "depository"
+  | "credit"
+  | "loan "
+  | "investment"
+  | "other";
+
+declare interface PaginationProps {
+  page: number;
+  totalPages: number;
+}
