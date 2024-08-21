@@ -1,10 +1,43 @@
+"use client"
+import React, { useCallback, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import Link from "next/link";
 import BankCard from "@/components/BankCard";
+import Category from "./Category";
+import { countTransactionCategories } from "@/lib/utils";
+import { Button } from "./ui/button";
+import { usePlaidLink } from "react-plaid-link";
+import { useRouter } from "next/navigation";
+import { createLinkToken, exchangePublicToken } from "@/lib/actions/user.actions";
 
-const RightSidebar = ({ user, banks }: RightSidebarProps) => {
+const RightSidebar = ({ user, banks, transactions }: RightSidebarProps) => {
   const t = useTranslations("RightSidebar");
+  const categories: CategoryCount[] = countTransactionCategories(transactions);
+  const router = useRouter();
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    const getLinkToken = async () => {
+      const data = await createLinkToken(user);
+      setToken(data?.linkToken);
+    };
+    getLinkToken();
+  }, [user]);
+
+  const onSuccess = useCallback(async (public_token: string) => {
+    await exchangePublicToken({
+      publicToken: public_token,
+      user,
+    });
+    router.push("/");
+  }, [user, router]);
+
+  const config = {
+    token,
+    onSuccess,
+  };
+
+  const { open, ready } = usePlaidLink(config);
 
   return (
     <aside className="right-sidebar">
@@ -16,7 +49,7 @@ const RightSidebar = ({ user, banks }: RightSidebarProps) => {
               {user.firstName[0]}
             </span>
           </div>
-
+          
           <div className="profile-details">
             <h1 className="profile-name">
               {user.firstName} {user.lastName}
@@ -25,16 +58,21 @@ const RightSidebar = ({ user, banks }: RightSidebarProps) => {
           </div>
         </div>
       </section>
-
+      
       <section className="banks">
         <div className="flex w-full justify-between">
           <h2 className="header-2">{t("myBanks")}</h2>
-          <Link href="/" className="flex gap-2">
+          <Button
+            onClick={() => ready && open()}
+            disabled={!ready}
+            className="flex gap-2 items-center"
+            variant="ghost"
+          >
             <Image src="/icons/plus.svg" width={20} height={20} alt="plus" />
-            <h2 className="text-14 font-semibold text-gray-600">
+            <span className="text-14 font-semibold text-gray-600">
               {t("addBank")}
-            </h2>
-          </Link>
+            </span>
+          </Button>
         </div>
 
         {banks?.length > 0 && (
@@ -59,6 +97,16 @@ const RightSidebar = ({ user, banks }: RightSidebarProps) => {
             )}
           </div>
         )}
+
+        <div className="mt-10 flex flex-1 flex-col gap-6">
+          <h2 className="header-2">Top categories</h2>
+          
+          <div className='space-y-5'>
+            {categories.map((category) => (
+              <Category key={category.name} category={category} />
+            ))}
+          </div>
+        </div>
       </section>
     </aside>
   );

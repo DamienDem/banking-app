@@ -11,7 +11,7 @@ const Home = async ({ searchParams: { id, page } }: SearchParamProps) => {
 
   const accountsData = accounts?.data;
 
-  const bankItemId = (id as string) || accountsData[0]?.bankId;
+  const bankItemId: string = (id as string) || accountsData[0]?.bankId;
 
   const account = await getAccount({ bankId: bankItemId });
 
@@ -25,6 +25,7 @@ const Home = async ({ searchParams: { id, page } }: SearchParamProps) => {
       totalBanks={accounts?.totalBanks}
       totalBalance={accounts?.totalCurrentBalance}
       page={{ page: page?.toString() }}
+      id={bankItemId}
     />
   );
 };

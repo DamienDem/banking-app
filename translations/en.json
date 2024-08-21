@@ -22,5 +22,11 @@
   "RightSidebar": {
     "myBanks": "myBanks",
     "addBank": "Add Bank"
+  },
+  "routes": {
+    "/": "/",
+    "/myBanks": "/my-banks",
+    "/transactionHistory": "/transaction-history",
+    "/transferFunds": "/transfer-funds"
   }
 }

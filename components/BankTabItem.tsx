@@ -7,7 +7,7 @@ import { cn, formUrlQuery } from "@/lib/utils";
 export const BankTabItem = ({ account, id }: BankTabItemProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const isActive = id=== account?.id;
+  const isActive = id === account?.id;
 
   const handleBankChange = () => {
     const newUrl = formUrlQuery({

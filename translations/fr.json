@@ -22,5 +22,11 @@
       "/transactionHistory": "/historique-des-transactions",
       "/transferFunds": "/transferer-de-largent"
     }
+  },
+  "routes": {
+    "/": "/",
+    "/myBanks": "/mes-banques",
+    "/transactionHistory": "/historique-des-transactions",
+    "/transferFunds": "/transferer-de-largent"
   }
 }

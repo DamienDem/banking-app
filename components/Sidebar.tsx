@@ -5,8 +5,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn, isLinkActive } from "@/lib/utils";
 import { useTranslations } from "next-intl";
+import PlaidLink from "./PlaidLink";
+import Footer from "./Footer";
 
-const Sidebar = ({ user }: any) => {
+const Sidebar = ({ user }: { user: User }) => {
   const pathname = usePathname();
   const t = useTranslations("Sidebar");
 
@@ -25,10 +27,7 @@ const Sidebar = ({ user }: any) => {
         </Link>
 
         {sidebarLinks.map((item) => {
-          const isActive = isLinkActive(
-            t(`routes.${item.route}`),
-            pathname
-          );
+          const isActive = isLinkActive(t(`routes.${item.route}`), pathname);
 
           return (
             <Link
@@ -52,7 +51,9 @@ const Sidebar = ({ user }: any) => {
             </Link>
           );
         })}
+        <PlaidLink user={user} />
       </nav>
+      <Footer user={user} />
     </section>
   );
 };

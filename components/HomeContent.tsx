@@ -11,6 +11,7 @@ const Home = ({
   totalBanks,
   totalBalance,
   page,
+  id
 }: HomeContentProps) => {
   const t = useTranslations("HomePage");
   const currentPage = Number(page) || 1;
@@ -34,11 +35,15 @@ const Home = ({
         <Transactions
           accounts={accounts}
           transactions={account?.transactions}
-          id={accounts[0]?.bankId}
+          id={id}
           page={currentPage}
         />
       </div>
-      <RightSidebar user={user} banks={accounts?.slice(0, 2)} />
+      <RightSidebar
+        user={user}
+        transactions={account?.transactions}
+        banks={accounts?.slice(0, 2)}
+      />
     </section>
   );
 };

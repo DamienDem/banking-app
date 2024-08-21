@@ -8,6 +8,7 @@ const TotalBalanceBox = ({
   totalBalance,
 }: TotalBalanceBoxProps) => {
   const t = useTranslations("HomePage");
+
   return (
     <section className="total-balance">
       <div className="total-balance-chart">

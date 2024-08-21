@@ -6,6 +6,8 @@ declare type Account = {
   subtype: string;
   bankId: string;
   transactions: Transaction[];
+  shareableId: string;
+  mask: string;
 };
 
 declare type User = {
@@ -94,6 +96,7 @@ declare interface PlaidLinkProps {
 declare interface RightSidebarProps {
   user: User;
   banks: Account[];
+  transactions: Transaction[];
 }
 
 declare interface TotalBalanceBoxProps {
@@ -108,6 +111,7 @@ declare interface HomeContentProps {
   totalBanks: number;
   totalBalance: number;
   page: { [key: string]: string | string[] | undefined };
+  id: string;
 }
 declare type SignUpParams = {
   firstName: string;
@@ -231,4 +235,33 @@ declare type AccountTypes =
 declare interface PaginationProps {
   page: number;
   totalPages: number;
+}
+
+declare interface getBankByAccountIdProps {
+  accountId: string;
+}
+
+declare interface PaymentTransferFormProps {
+  accounts: Account[];
+}
+
+declare interface BankDropdownProps {
+  accounts: Account[];
+  setValue?: UseFormSetValue<any>;
+  otherStyles?: string;
+}
+
+declare type CategoryCount = {
+  name: string;
+  count: number;
+  totalCount: number;
+};
+
+declare interface CategoryProps {
+  category: CategoryCount;
+}
+
+declare interface FooterProps {
+  user: User;
+  type?: "mobile" | "desktop";
 }

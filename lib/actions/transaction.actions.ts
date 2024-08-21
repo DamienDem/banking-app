@@ -1,5 +1,13 @@
 "use server";
-import { collection, doc, getDocs, query, setDoc, where } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
 import { parseStringify } from "../utils";
 import { db } from "@/firebase";
 
@@ -7,11 +15,15 @@ export const createTransaction = async (
   transaction: CreateTransactionProps
 ) => {
   try {
-    const newTransaction = await setDoc(
-      doc(db, "transactions", transaction.userId),
-      transaction
-    );
+    const transactionRef = doc(collection(db, "transactions"));
+    const transactionWithId = {
+      ...transaction,
+      id: transactionRef.id,
+      createdAt: new Date().toISOString(),
+    };
+    await setDoc(transactionRef, transactionWithId);
 
+    const newTransaction = (await getDoc(transactionRef)).data();
     return parseStringify(newTransaction);
   } catch (error) {
     console.log(error);
@@ -31,7 +43,7 @@ export const getTransactionsByBankId = async ({
 
     const querySnapshot = await getDocs(q);
 
-    const documents:Transaction[] = [];
+    const documents: Transaction[] = [];
     querySnapshot.forEach((doc) => {
       documents.push({ id: doc.id, ...doc.data() } as Transaction);
     });
@@ -39,7 +51,7 @@ export const getTransactionsByBankId = async ({
       total: documents.length,
       documents: documents,
     };
-    return parseStringify(transactions);
+    return transactions;
   } catch (error) {
     console.log(error);
   }

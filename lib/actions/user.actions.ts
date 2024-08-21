@@ -160,7 +160,7 @@ export const createLinkToken = async (user: User) => {
       },
       client_name: `${user.firstName} ${user.lastName}`,
       products: ["auth"] as Products[],
-      language: "en",
+      language: "fr",
       country_codes: ["US"] as CountryCode[],
     };
 
@@ -267,6 +267,22 @@ export const getBank = async ({ documentId }: getBankProps) => {
     const bank = (await getDoc(bankDocRef)).data();
 
     return parseStringify(bank);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getBankByAccountId = async ({
+  accountId,
+}: getBankByAccountIdProps) => {
+  try {
+    const banksCollectionRef = collection(db, "banks");
+    const q = query(banksCollectionRef, where("accountId", "==", accountId));
+    const querySnapshot = await getDocs(q);
+
+    const bank = querySnapshot.docs[0].data();
+
+    return bank;
   } catch (error) {
     console.log(error);
   }

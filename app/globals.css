@@ -336,7 +336,7 @@
 
   /* Footer */
   .footer {
-    @apply flex cursor-pointer items-center justify-between gap-2 py-6;
+    @apply flex cursor-pointer items-center justify-between gap-1 py-6;
   }
 
   .footer_name {
@@ -344,7 +344,7 @@
   }
 
   .footer_email {
-    @apply flex flex-1 flex-col justify-center max-xl:hidden;
+    @apply flex flex-1 flex-col justify-center max-w-36 max-xl:hidden;
   }
 
   .footer_name-mobile {
