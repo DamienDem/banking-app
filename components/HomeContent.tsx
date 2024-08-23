@@ -2,16 +2,17 @@ import HeaderBox from "@/components/HeaderBox";
 import RightSidebar from "@/components/RightSidebar";
 import TotalBalanceBox from "@/components/TotalBalanceBox";
 import { useTranslations } from "next-intl";
-import Transactions from "./Transactions";
 
-const Home = ({
+import RecentTransactions from "./Transactions";
+
+const HomeContent = ({
   user,
   accounts,
   account,
   totalBanks,
   totalBalance,
   page,
-  id
+  id,
 }: HomeContentProps) => {
   const t = useTranslations("HomePage");
   const currentPage = Number(page) || 1;
@@ -32,7 +33,7 @@ const Home = ({
             totalBalance={totalBalance}
           />
         </header>
-        <Transactions
+        <RecentTransactions
           accounts={accounts}
           transactions={account?.transactions}
           id={id}
@@ -48,4 +49,4 @@ const Home = ({
   );
 };
 
-export default Home;
+export default HomeContent;

@@ -4,6 +4,7 @@ import {
   doc,
   getDoc,
   getDocs,
+  or,
   query,
   setDoc,
   where,
@@ -19,8 +20,11 @@ export const createTransaction = async (
     const transactionWithId = {
       ...transaction,
       id: transactionRef.id,
+      category: "Transfer",
+      channel: "online",
       createdAt: new Date().toISOString(),
     };
+
     await setDoc(transactionRef, transactionWithId);
 
     const newTransaction = (await getDoc(transactionRef)).data();
@@ -37,8 +41,10 @@ export const getTransactionsByBankId = async ({
     const transactionsCollectionRef = collection(db, "transactions");
     const q = query(
       transactionsCollectionRef,
-      where("receiverBankId", "==", bankId),
-      where("senderBankId", "==", bankId)
+      or(
+        where("receiverBankId", "==", bankId),
+        where("senderBankId", "==", bankId)
+      )
     );
 
     const querySnapshot = await getDocs(q);
@@ -51,6 +57,7 @@ export const getTransactionsByBankId = async ({
       total: documents.length,
       documents: documents,
     };
+
     return transactions;
   } catch (error) {
     console.log(error);

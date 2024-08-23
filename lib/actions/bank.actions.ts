@@ -69,13 +69,15 @@ export const getAccount = async ({ bankId }: getAccountProps) => {
     const transferTransactionsData = await getTransactionsByBankId({
       bankId: bank.bankId,
     });
+    
+    
 
-    const transferTransactions = transferTransactionsData.documents.map(
+    const transferTransactions = transferTransactionsData!.documents.map(
       (transferData: Transaction) => ({
         id: transferData.id,
         name: transferData.name!,
         amount: transferData.amount!,
-        date: transferData.$createdAt,
+        date: transferData.createdAt,
         paymentChannel: transferData.channel,
         category: transferData.category,
         type: transferData.senderBankId === bank.bankId ? "debit" : "credit",

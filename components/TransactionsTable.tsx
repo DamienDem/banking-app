@@ -1,7 +1,6 @@
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
@@ -27,6 +26,7 @@ import {
   } 
   
   const TransactionsTable = ({ transactions }: TransactionTableProps) => {
+    
     return (
       <Table>
         <TableHeader className="bg-[#f9fafb]">

@@ -110,7 +110,7 @@ declare interface HomeContentProps {
   account: Account;
   totalBanks: number;
   totalBalance: number;
-  page: { [key: string]: string | string[] | undefined };
+  page: string;
   id: string;
 }
 declare type SignUpParams = {
@@ -179,7 +179,7 @@ declare type Transaction = {
   date: string;
   image: string;
   type: string;
-  $createdAt: string;
+  createdAt: string;
   channel: string;
   senderBankId: string;
   receiverBankId: string;

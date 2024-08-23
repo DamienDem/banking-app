@@ -49,10 +49,13 @@ const PaymentTransferForm = ({ accounts }: PaymentTransferFormProps) => {
 
   const submit = async (data: z.infer<typeof formSchema>) => {
     setIsLoading(true);
+    console.log(data);
 
     try {
+      const receiverAccountId = decryptId(data.sharableId);
+
       const receiverBank = await getBankByAccountId({
-        accountId: data.sharableId,
+        accountId: receiverAccountId,
       });
       const senderBank = await getBank({ documentId: data.senderBank });
 

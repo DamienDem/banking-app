@@ -3,6 +3,7 @@ import { getAccount, getAccounts } from "@/lib/actions/bank.actions";
 import { getCurrentUser } from "@/lib/actions/user.actions";
 
 const Home = async ({ searchParams: { id, page } }: SearchParamProps) => {
+  const pageString = page?.toString() || "1";
   const user = await getCurrentUser();
 
   if (user === null) return;
@@ -24,7 +25,7 @@ const Home = async ({ searchParams: { id, page } }: SearchParamProps) => {
       accounts={accountsData}
       totalBanks={accounts?.totalBanks}
       totalBalance={accounts?.totalCurrentBalance}
-      page={{ page: page?.toString() }}
+      page={pageString}
       id={bankItemId}
     />
   );
