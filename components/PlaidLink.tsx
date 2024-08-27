@@ -11,10 +11,11 @@ import {
   createLinkToken,
   exchangePublicToken,
 } from "@/lib/actions/user.actions";
+import { useTranslations } from "next-intl";
 
 const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
   const router = useRouter();
-
+  const t = useTranslations("PlaidLink");
   const [token, setToken] = useState("");
 
   useEffect(() => {
@@ -54,7 +55,7 @@ const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
           disabled={!ready}
           className="plaidlink-primary"
         >
-          Connect bank
+          {t("connectBank")}
         </Button>
       ) : variant === "ghost" ? (
         <Button
@@ -69,7 +70,7 @@ const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
             height={24}
           />
           <p className="hiddenl text-[16px] font-semibold text-black-2 xl:block">
-            Connect bank
+          {t("connectBank")}
           </p>
         </Button>
       ) : (
@@ -80,7 +81,7 @@ const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
             width={24}
             height={24}
           />
-          <p className="text-[16px] font-semibold text-black-2">Connect bank</p>
+          <p className="text-[16px] font-semibold text-black-2">{t("connectBank")}</p>
         </Button>
       )}
     </>

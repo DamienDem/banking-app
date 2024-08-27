@@ -51,7 +51,9 @@ const Sidebar = ({ user }: { user: User }) => {
             </Link>
           );
         })}
-        <PlaidLink user={user} />
+        <div className={cn("sidebar-label")}>
+          <PlaidLink user={user} />
+        </div>
       </nav>
       <Footer user={user} />
     </section>

@@ -8,6 +8,7 @@ declare type Account = {
   transactions: Transaction[];
   shareableId: string;
   mask: string;
+  officialName: string;
 };
 
 declare type User = {

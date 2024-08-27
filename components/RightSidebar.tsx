@@ -99,7 +99,7 @@ const RightSidebar = ({ user, banks, transactions }: RightSidebarProps) => {
         )}
 
         <div className="mt-10 flex flex-1 flex-col gap-6">
-          <h2 className="header-2">Top categories</h2>
+          <h2 className="header-2">{t('topCategories')}</h2>
           
           <div className='space-y-5'>
             {categories.map((category) => (

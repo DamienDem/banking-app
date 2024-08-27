@@ -7,7 +7,8 @@
   },
   "RightSidebar": {
     "myBanks": "Mes banques",
-    "addBank": "Ajouter une banque"
+    "addBank": "Ajouter une banque",
+    "topCategories": "Catégories principales"
   },
   "Sidebar": {
     "SidebarLabels": {
@@ -28,5 +29,95 @@
     "/myBanks": "/mes-banques",
     "/transactionHistory": "/historique-des-transactions",
     "/transferFunds": "/transferer-de-largent"
+  },
+  "RecentTransactions": {
+    "recentTransactions": "Transactions récentes",
+    "viewAll": "Voir tout"
+  },
+  "TransactionTable": {
+    "transaction": "Transactions",
+    "amount": "Montant",
+    "date": "Date",
+    "status": "Statut",
+    "channel": "Canal",
+    "category": "Catégorie",
+    "processing": "Traitement",
+    "success": "Succès",
+    "Transfer": "Transfert",
+    "Travel": "Voyage",
+    "Food and Drink": "Nourriture et boisson",
+    "Payment": "Paiement",
+    "Bank Fees": "Frais bancaires",
+    "default": "Défaut"
+  },
+  "PlaidLink": {
+    "connectBank": "Connecter une banque"
+  },
+  "MyBanks": {
+    "myBanksAccounts": "Mes comptes bancaires",
+    "EffortlesslyManagaeYourBankAccounts": "Gérez facilement les activités de vos comptes bancaires.",
+    "yourCards": "Vos cartes"
+  },
+  "TransactionHistory": {
+    "transactionHistory": "Historique des transactions",
+    "seeYourBankDetails": "Voir les détails et les transactions de vos banque",
+    "currentBalance": "Solde actuel"
+  },
+  "PaymentTransfer": {
+    "paymentTransfer": "Transfert de fonds",
+    "pleaseProvideAnySpecificDetails": "Veuillez fournir des détails spécifiques ou instrutions pour le transfert de fonds"
+  },
+  "PaymentTransferForm": {
+    "selectSourceBank": "Sélectionner la banque source",
+    "selectBankAccount": "Sélectionnez le compte bancaire à partir duquel vous souhaitez transférer des fonds",
+    "transferNote": "Note de transfert (Optionnel)",
+    "transferNoteDescription": "Veuillez fournir toute information ou instruction supplémentaire liée au transfert",
+    "writeShortnote": "Écrivez une courte note ici",
+    "bankAccountDetails": "Détails du compte bancaire",
+    "enterRecipientDetails": "Entrez les détails du compte bancaire du destinataire",
+    "recipientEmailAddress": "Adresse e-mail du destinataire",
+    "emailPlaceholder": "ex : johndoe@gmail.com",
+    "receiverPlaidSharableId": "ID partageable Plaid du destinataire",
+    "enterPublicAccountNumber": "Entrez le numéro de compte public",
+    "amount": "Montant",
+    "amountPlaceholder": "ex : 5,00",
+    "transferFunds": "Transférer les fonds",
+    "sending": "Envoi en cours...",
+    "invalidEmailAddress": "Adresse e-mail invalide",
+    "transferNoteTooShort": "La note de transfert est trop courte",
+    "amountTooShort": "Le montant est trop court",
+    "selectValidBankAccount": "Veuillez sélectionner un compte bancaire valide",
+    "selectValidSharableId": "Veuillez sélectionner un ID partageable valide",
+    "submitTransferFailed": "La soumission de la demande de transfert a échoué : "
+  },
+  "AuthForm": {
+    "signIn": "Connexion",
+    "signUp": "Inscription",
+    "linkAccount": "Lier le compte",
+    "linkAccountDescription": "Liez votre compte pour commencer",
+    "enterDetails": "Veuillez entrer vos informations",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "address": "Adresse",
+    "city": "Ville",
+    "state": "État",
+    "postalCode": "Code postal",
+    "dateOfBirth": "Date de naissance",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "loading": "Chargement...",
+    "dontHaveAccount": "Vous n'avez pas de compte ?",
+    "alreadyHaveAccount": "Vous avez déjà un compte ?",
+    "signUpLink": "S'inscrire",
+    "signInLink": "Se connecter",
+    "firstNamePlaceholder": "Entrez votre prénom",
+    "lastNamePlaceholder": "Entrez votre nom",
+    "addressPlaceholder": "Entrez votre adresse spécifique",
+    "cityPlaceholder": "Entrez votre ville",
+    "statePlaceholder": "Exemple : NY",
+    "postalCodePlaceholder": "Exemple : 75001",
+    "dateOfBirthPlaceholder": "AAAA-MM-JJ",
+    "emailPlaceholder": "Entrez votre e-mail",
+    "passwordPlaceholder": "Entrez votre mot de passe"
   }
 }

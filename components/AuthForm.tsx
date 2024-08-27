@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -15,11 +14,13 @@ import { Loader2 } from "lucide-react";
 import { signIn, signUp } from "@/lib/actions/user.actions";
 import { useRouter } from "next/navigation";
 import PlaidLink from "./PlaidLink";
+import { useTranslations } from "next-intl";
 
 const AuthForm = ({ type }: { type: string }) => {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const t = useTranslations("AuthForm");
 
   const formSchema = authFormSchema(type);
 
@@ -83,13 +84,11 @@ const AuthForm = ({ type }: { type: string }) => {
 
         <div className="flex flex-col gap-1 md:gap-3">
           <h1 className="text-24 lg:text-36 font-semibold text-gray-900">
-            {user ? "Link Account" : type === "sign-in" ? "Sign In" : "Sign Up"}
-            <p className="text-16 font-normal text-gray-600">
-              {user
-                ? "Link your account to get started"
-                : "Please enter your details"}
-            </p>
+            {user ? t("linkAccount") : type === "sign-in" ? t("signIn") : t("signUp")}
           </h1>
+          <p className="text-16 font-normal text-gray-600">
+            {user ? t("linkAccountDescription") : t("enterDetails")}
+          </p>
         </div>
       </header>
       {user ? (
@@ -106,47 +105,47 @@ const AuthForm = ({ type }: { type: string }) => {
                     <CustomInput
                       control={form.control}
                       name="firstName"
-                      label="First Name"
-                      placeholder="Enter your first name"
+                      label={t("firstName")}
+                      placeholder={t("firstNamePlaceholder")}
                     />
                     <CustomInput
                       control={form.control}
                       name="lastName"
-                      label="Last Name"
-                      placeholder="Enter your first name"
+                      label={t("lastName")}
+                      placeholder={t("lastNamePlaceholder")}
                     />
                   </div>
                   <CustomInput
                     control={form.control}
                     name="address"
-                    label="Address"
-                    placeholder="Enter your specific address"
+                    label={t("address")}
+                    placeholder={t("addressPlaceholder")}
                   />
                   <CustomInput
                     control={form.control}
                     name="city"
-                    label="City"
-                    placeholder="Enter your city"
+                    label={t("city")}
+                    placeholder={t("cityPlaceholder")}
                   />
                   <div className="flex gap-4">
                     <CustomInput
                       control={form.control}
                       name="state"
-                      label="State"
-                      placeholder="Example: NY"
+                      label={t("state")}
+                      placeholder={t("statePlaceholder")}
                     />
                     <CustomInput
                       control={form.control}
                       name="postalCode"
-                      label="Postal Code"
-                      placeholder="Example: 11101"
+                      label={t("postalCode")}
+                      placeholder={t("postalCodePlaceholder")}
                     />
                   </div>
                   <CustomInput
                     control={form.control}
                     name="dateOfBirth"
-                    label="Date of Birth"
-                    placeholder="YYYY-MM-DD"
+                    label={t("dateOfBirth")}
+                    placeholder={t("dateOfBirthPlaceholder")}
                   />
                 </>
               )}
@@ -154,15 +153,15 @@ const AuthForm = ({ type }: { type: string }) => {
               <CustomInput
                 control={form.control}
                 name="email"
-                label="Email"
-                placeholder="Enter your email"
+                label={t("email")}
+                placeholder={t("emailPlaceholder")}
               />
 
               <CustomInput
                 control={form.control}
                 name="password"
-                label="Password"
-                placeholder="Enter your password"
+                label={t("password")}
+                placeholder={t("passwordPlaceholder")}
               />
 
               <div className="flex flex-col gap-4">
@@ -170,12 +169,12 @@ const AuthForm = ({ type }: { type: string }) => {
                   {isLoading ? (
                     <>
                       <Loader2 size={20} className="animate-spin" /> &nbsp;
-                      Loading...
+                      {t("loading")}
                     </>
                   ) : type === "sign-in" ? (
-                    "Sign In"
+                    t("signIn")
                   ) : (
-                    "Sign Up"
+                    t("signUp")
                   )}
                 </Button>
               </div>
@@ -184,15 +183,13 @@ const AuthForm = ({ type }: { type: string }) => {
 
           <footer className="flex justify-center gap-1">
             <p className="text-14 font-normal text-gray-600">
-              {type === "sign-in"
-                ? "Don't have an account?"
-                : "Already have an account?"}
+              {type === "sign-in" ? t("dontHaveAccount") : t("alreadyHaveAccount")}
             </p>
             <Link
               href={type === "sign-in" ? "/sign-up" : "/sign-in"}
               className="form-link"
             >
-              {type === "sign-in" ? "Sign up" : "Sign in"}
+              {type === "sign-in" ? t("signUpLink") : t("signInLink")}
             </Link>
           </footer>
         </>

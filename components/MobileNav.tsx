@@ -12,8 +12,9 @@ import { useTranslations } from "next-intl"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import Footer from "./Footer"
 
-const MobileNav = ({ user }: any) => {
+const MobileNav = ({ user }: {user: User}) => {
   const pathname = usePathname();
   const t = useTranslations('Sidebar')
 
@@ -68,6 +69,7 @@ const MobileNav = ({ user }: any) => {
               })}
               </nav>
             </SheetClose>
+            <Footer user={user} type="mobile" />
           </div>
         </SheetContent>
       </Sheet>

@@ -4,6 +4,7 @@ import TransactionsTable from './TransactionsTable'
 import { Pagination } from './Pagination'
 import { BankTabItem } from './BankTabItem'
 import BankInfo from './BankInfo'
+import { useTranslations } from 'next-intl'
 
 const RecentTransactions = ({
   accounts,
@@ -13,6 +14,7 @@ const RecentTransactions = ({
 }: TransactionsProps) => {
   const rowsPerPage = 10;
   const totalPages = Math.ceil(transactions.length / rowsPerPage);
+  const t = useTranslations("RecentTransactions");
 
   const indexOfLastTransaction = page * rowsPerPage;
   const indexOfFirstTransaction = indexOfLastTransaction - rowsPerPage;
@@ -24,12 +26,12 @@ const RecentTransactions = ({
   return (
     <section className="recent-transactions">
       <header className="flex items-center justify-between">
-        <h2 className="recent-transactions-label">Recent transactions</h2>
+        <h2 className="recent-transactions-label">{t('recentTransactions')}</h2>
         <Link
           href={`/transaction-history/?id=${id}`}
           className="view-all-btn"
         >
-          View all
+          {t('viewAll')}
         </Link>
       </header>
 
