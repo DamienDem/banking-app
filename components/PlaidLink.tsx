@@ -13,7 +13,7 @@ import {
 } from "@/lib/actions/user.actions";
 import { useTranslations } from "next-intl";
 
-const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
+const PlaidLink = ({ user, variant, isMobile }: PlaidLinkProps) => {
   const router = useRouter();
   const t = useTranslations("PlaidLink");
   const [token, setToken] = useState("");
@@ -37,7 +37,7 @@ const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
 
       router.push("/");
     },
-    [user]
+    [user, router]
   );
 
   const config: PlaidLinkOptions = {
@@ -69,8 +69,12 @@ const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
             width={24}
             height={24}
           />
-          <p className="hiddenl text-[16px] font-semibold text-black-2 xl:block">
-          {t("connectBank")}
+          <p
+            className={`hiddenl text-[16px] font-semibold text-black-2 xl:block ${
+              isMobile ? "" : "max-xl:hidden"
+            }`}
+          >
+            {t("connectBank")}
           </p>
         </Button>
       ) : (
@@ -81,7 +85,13 @@ const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
             width={24}
             height={24}
           />
-          <p className="text-[16px] font-semibold text-black-2">{t("connectBank")}</p>
+          <p
+            className={`text-[16px] font-semibold text-black-2 xl:block ${
+              isMobile ? "" : "max-xl:hidden"
+            }`}
+          >
+            {t("connectBank")}
+          </p>
         </Button>
       )}
     </>

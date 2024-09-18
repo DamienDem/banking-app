@@ -92,6 +92,7 @@ declare interface PlaidLinkProps {
   user: User;
   variant?: "primary" | "ghost";
   dwollaCustomerId?: string;
+  isMobile?: boolean;
 }
 
 declare interface RightSidebarProps {

@@ -13,6 +13,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import Footer from "./Footer"
+import PlaidLink from "./PlaidLink"
 
 const MobileNav = ({ user }: {user: User}) => {
   const pathname = usePathname();
@@ -67,6 +68,7 @@ const MobileNav = ({ user }: {user: User}) => {
                   </SheetClose>
                 )
               })}
+              <PlaidLink user={user} isMobile={true}/>
               </nav>
             </SheetClose>
             <Footer user={user} type="mobile" />
